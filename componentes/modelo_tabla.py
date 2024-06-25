@@ -13,12 +13,28 @@ class Tabla:
     
     
     @classmethod
-    def obtener_todos(cls):
-        f"SELECT * FROM {cls.self._tabla}"
-        pass
+    def obtener_tabla(cls, datos:dict[str,str]) -> list[dict[str,str]]:
+        if cls._conexion.is_connected():
+            print(f'Inicio de conexion de tabla {datos["tabla"]}!')
+            try:
+                cls._conexion.connect()
+                cursor = cls._conexion.cursor()
+                consulta = f"SELECT * FROM {datos["tabla"]}"
+                cursor.execute(consulta)
+                columns = [column[0] for column in cursor.description]
+                #print(columns)
+                resultado = []
+                for row in cursor.fetchall():
+                    resultado.append(dict(zip(columns, row)))
+                cls._conexion.close()
+                print(resultado)
+                return resultado
+            except Error as ex:
+                print(f'Error al intentar la conexión: {ex}')
+
     
     @classmethod
-    def agregar_fila(cls,datos:tuple):
+    def agregar_fila(cls,datos:dict[str,str]):
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -34,7 +50,7 @@ class Tabla:
                 print(f'Error al intentar la conexión: {ex}')
 
     @classmethod
-    def mostrar_fila_id(cls, datos:tuple) -> dict[str,str]:
+    def obtener_fila_id(cls, datos:dict[str,str]) -> list[dict[str,str]]:
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -43,14 +59,19 @@ class Tabla:
                 consulta = F'SELECT * FROM {datos["tabla"]} WHERE id = {datos["comodin"]};'
                 dato = (datos["valores"],)
                 cursor.execute(consulta,dato)
-                resultado = cursor.fetchone()
+                columns = [column[0] for column in cursor.description]
+                #print(columns)
+                resultado = []
+                for row in cursor.fetchall():
+                    resultado.append(dict(zip(columns, row)))
+                #resultado = cursor.fetchone()
                 cls._conexion.close()
                 print(resultado)
                 return resultado
             except Error as ex:
                 print(f'Error al intentar la conexión: {ex}')
     
-    def eliminar_fila_id(cls, datos:tuple):
+    def eliminar_fila_id(cls, datos:dict[str,str]):
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -88,5 +109,6 @@ da = {
     "comodin": f'%s'
 }
 
-usuario.mostrar_fila_id(datos)
+usuario.obtener_tabla(datos)
+#usuario.obtener_fila_id(datos)
 
