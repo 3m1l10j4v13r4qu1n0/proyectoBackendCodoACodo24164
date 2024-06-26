@@ -5,13 +5,11 @@ class Tabla:
     _conexion = c_db.conexion
     _error = c_db.error
     
-    
     def __init__(self):
        pass
     
-    
     @classmethod
-    def obtener_tabla(cls, datos:dict[str, any]) -> list[dict[str,any]]:
+    def obtener_tabla(cls, datos:dict[str, any]) -> list[dict[str, any]]:
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -32,7 +30,7 @@ class Tabla:
 
     
     @classmethod
-    def agregar_fila(cls,datos:dict[str,str]):
+    def agregar_fila(cls,datos:dict[str, str]):
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -67,7 +65,7 @@ class Tabla:
             except cls._error as ex:
                 print(f'Error al intentar la conexión: {ex}')
     
-    def eliminar_fila_id(cls, datos:dict[str,any]):
+    def eliminar_fila_id(cls, datos:dict[str, any]):
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -82,24 +80,5 @@ class Tabla:
             except cls._error as ex:
                 print(f'Error al intentar la conexión: {ex}')
 
-datos = {
-    "tabla": "usuario",
-    "campos": (),
-    "valores": (),
-    "comodin": f'%s',
-    "id": (8)
-}
-datos1 = {
-    "tabla": "usuario",
-    "campos": ('nombre','apellido','email','telefono'),
-    "valores": ("fabian","gonzales","correo@correo.com","1123453467"),
-    "comodin": f'%s,%s,%s,%s'
-}
 
-da = {
-    "tabla": "usuario",
-    "campos": (),
-    "valores": (6),
-    "comodin": f'%s'
-}
 

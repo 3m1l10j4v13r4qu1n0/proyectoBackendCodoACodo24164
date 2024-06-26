@@ -44,4 +44,3 @@ valores = i[1]
 comodin = c
 tabla_completa = crear_data(tabla,id,campos,valores,comodin)
 
-#print(tabla_completa)
