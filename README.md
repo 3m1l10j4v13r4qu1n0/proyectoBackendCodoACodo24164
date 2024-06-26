@@ -1,4 +1,4 @@
-'''
+```
 project/
 │
 ├── backend/
@@ -14,4 +14,4 @@ project/
 │
 ├── README.md
 └── .gitignore
-'''
+```
