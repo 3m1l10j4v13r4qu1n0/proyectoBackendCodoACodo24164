@@ -1,4 +1,6 @@
 import mysql.connector
+from mysql.connector import Error
+error = Error
 
 config_dev = {
     'user': 'root',
