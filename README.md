@@ -20,6 +20,22 @@ project/
 ├── README.md
 └── .gitignore
 ```
+
+## Instalación ⚙️
+
+### Backend
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/3m1l10j4v13r4qu1n0/proyectoBackendCodoACodo24164.git
+   cd proyectoBackendCodoACodo24164/backend
+   
+### Crear y activar un entorno virtual:
+python3 -m venv venv
+source venv/bin/activate
+
+### Instalar las dependencias:
+pip install -r requirements.txt
+
 ## Colaboradores, ver GitHub
 
 - [Emilio Javier Aquino](https://github.com/3m1l10j4v13r4qu1n0)
