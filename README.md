@@ -20,3 +20,12 @@ project/
 ├── README.md
 └── .gitignore
 ```
+## Colaboradores, ver GitHub
+
+- [Emilio Javier Aquino](https://github.com/3m1l10j4v13r4qu1n0)
+- [Lucas Ezequiel Acosta](https://github.com/ALucasE)
+- [Gaston Roberto Mastoy](https://github.com/gastonmastoy)
+- [Francisco Jose Rendo](https://github.com/FrankRendo)
+ 
+## [Ver despliegue fornend "](próximamente)
+  Realizado con pythonanywhere
