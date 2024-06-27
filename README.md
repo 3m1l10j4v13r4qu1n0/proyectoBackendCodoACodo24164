@@ -1,22 +1,34 @@
-Proyecto Backend - Codo a Codo 24164
-Descripción
+# Proyecto Backend - Codo a Codo 24164 🚀
+
+## Descripción 📄
 Este proyecto es una aplicación web completa desarrollada como parte del curso de Fullstack Python en Codo a Codo. La aplicación implementa operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar una lista de usuarios. Utiliza Flask como framework backend y SQLAlchemy para la manipulación de la base de datos.
 
-Estructura del Proyecto
-```
+## Estructura del Proyecto 📁
+´´´
+
+Claro, aquí tienes el contenido del README.md en formato de código para que puedas copiar y pegar directamente en tu archivo README.md:
+
+markdown
+Copiar código
+# Proyecto Backend - Codo a Codo 24164 🚀
+
+## Descripción 📄
+Este proyecto es una aplicación web completa desarrollada como parte del curso de Fullstack Python en Codo a Codo. La aplicación implementa operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar una lista de usuarios. Utiliza Flask como framework backend y SQLAlchemy para la manipulación de la base de datos.
+
+## Estructura del Proyecto 📁
 project/
 │
 ├── backend/
-│   ├── app.py
-│   ├── models.py
-│   ├── database.py
-│   ├── requirements.txt
+│ ├── app.py
+│ ├── models.py
+│ ├── database.py
+│ ├── requirements.txt
 │
 ├── frontend/
-│   ├── index.html
-│   ├── app.js
-│   ├── styles.css
+│ ├── index.html
+│ ├── app.js
+│ ├── styles.css
 │
 ├── README.md
 └── .gitignore
-```
+´´´
