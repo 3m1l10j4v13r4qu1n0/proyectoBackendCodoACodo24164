@@ -30,7 +30,7 @@ class Tabla:
 
     
     @classmethod
-    def agregar_fila(cls,datos:dict[str, str]):
+    def agregar_fila(cls,datos:dict[str, any]):
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
@@ -46,14 +46,14 @@ class Tabla:
                 print(f'Error al intentar la conexión: {ex}')
 
     @classmethod
-    def obtener_fila_id(cls, datos:dict[str, any]) -> list[dict[str, any]]:
+    def obtener_fila_id(cls, id:str, datos:dict[str, any]) -> list[dict[str, any]]:
         if cls._conexion.is_connected():
             print(f'Inicio de conexion de tabla {datos["tabla"]}!')
             try:
                 cls._conexion.connect()
                 cursor = cls._conexion.cursor()
                 consulta = f'SELECT * FROM {datos["tabla"]} WHERE id = %s;'
-                dato = (datos["id"],)
+                dato = (id,)
                 cursor.execute(consulta,dato)
                 columns = [column[0] for column in cursor.description]
                 resultado = []

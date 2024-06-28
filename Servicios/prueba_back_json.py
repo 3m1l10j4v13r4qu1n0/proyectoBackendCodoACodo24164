@@ -1,46 +1,38 @@
 data = {
-    "apellido": "smitch",
+    "apellido": "aquino",
     "email": "correo@corre.com",
-    "nombre": "sevastian",
-    "telefono": "1123456789"
-}
+    "id": 7,
+    "nombre": "emilio",
+    "telefono": "125208147"
+  }
 
+class Ingreso_data:
+	def __init__(self,data:dict[str,any],tabla:str) -> dict[str,any]:
+		self._tabla = tabla
+		self._data = data
+		self.campos= []
+		self.valores=[]
+		#self.comodin = self.agregar_comodin()
+		for clave, valor in self._data.items():
+			if clave != "id":
+				self.campos.append(clave)
+				self.valores.append(valor)
+		def agregar_comodin(campos) -> str:
+			index = '%s,'*len(campos)
+			comodin = index[:-1]
+			return comodin
+		self.comodin = agregar_comodin(self.campos)
 
+	def crear_data(self) -> dict[str,any]:
+		data = {
+			'tabla':self._tabla,
+			'id':self._data["id"],
+			'campos':(*self.campos,),
+			'valores':(*self.valores,),
+			'comodin': self.comodin
+		}
+		return data
 
-def ingreso_data(data:dict[str,any]) -> dict[str,any]:
-	campos=[]
-	valores=[]
-	for clave, valor in data.items():
-		campos.append(clave)
-		valores.append(valor)
-		
-	return (campos),(valores)
-		
-		
-def agregar_comodin(campos:tuple) -> str:
-	
-	index = '%s,'*len(campos)
-	comodin = index[:-1]
-	return comodin
-
-
-def crear_data(tabla:str,id:int,campos:tuple,valores:tuple,comodin:str) -> dict[str,any]:
-	data = {
-	    'tabla':tabla,
-		'id':(id),
-	    'campos':(*campos,),
-	    'valores':(*valores,),
-	    'comodin': comodin
-	}
-	return data
-
-
-i = ingreso_data(data)
-c = agregar_comodin(i[0])
-tabla = 'usuario'
-id = 8
-campos = i[0]
-valores = i[1]
-comodin = c
-tabla_completa = crear_data(tabla,id,campos,valores,comodin)
+#data_tabla = Ingreso_data(data,tabla="usuario")
+#dato =data_tabla.crear_data()
 
