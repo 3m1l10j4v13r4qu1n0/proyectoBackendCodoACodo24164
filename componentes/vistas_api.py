@@ -1,4 +1,7 @@
 #Vistas para la arquitectura API REST   
+from componentes.modelo_tabla import Tabla
+from componentes.modelos import User
+from servicios.prueba_back_json import Ingreso_data
 from flask import  request, jsonify
 from main import app
 data = {
@@ -11,9 +14,12 @@ data = {
 
  
 
+data_tabla = Ingreso_data(data,tabla="usuario")
+dato = data_tabla.crear_data()
 
 
 # Lista de usuarios (inicialmente vacía)
+lista_usuarios = Tabla.obtener_tabla(datos=dato)
 usuarios = [{
     "apellido": "aquino",
     "email": "correo@corre.com",
@@ -32,7 +38,7 @@ usuarios = [{
 # Ruta para obtener todos los usuarios (GET)
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
-    return jsonify(usuarios)
+    return jsonify(lista_usuarios)
 
 # Ruta para crear un nuevo usuario (POST)
 @app.route('/api/usuarios', methods=['POST'])
