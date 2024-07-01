@@ -1,22 +1,27 @@
 data = {
-    "apellido": "aquino",
+    "apellido": "pez",
     "email": "correo@corre.com",
-    "id": 7,
+    "id": None,
     "nombre": "emilio",
-    "telefono": "125208147"
+    "telefono": "125208148"
   }
 
 class Ingreso_data:
 	def __init__(self,data:dict[str,any],tabla:str) -> dict[str,any]:
-		self._tabla = tabla
-		self._data = data
+		self.tabla = tabla
+		self.data = data
 		self.campos= []
 		self.valores=[]
+		self.id = ""
 		#self.comodin = self.agregar_comodin()
-		for clave, valor in self._data.items():
+		for clave, valor in self.data.items():
 			if clave != "id":
 				self.campos.append(clave)
 				self.valores.append(valor)
+			else:
+				self.id = self.id + str(valor)
+				
+
 		def agregar_comodin(campos) -> str:
 			index = '%s,'*len(campos)
 			comodin = index[:-1]
@@ -25,14 +30,14 @@ class Ingreso_data:
 
 	def crear_data(self) -> dict[str,any]:
 		data = {
-			'tabla':self._tabla,
-			'id':self._data["id"],
+			'tabla':self.tabla,
+			'id':self.data["id"],
 			'campos':(*self.campos,),
 			'valores':(*self.valores,),
 			'comodin': self.comodin
 		}
 		return data
 
-#data_tabla = Ingreso_data(data,tabla="usuario")
-#dato =data_tabla.crear_data()
+data_tabla = Ingreso_data(data,tabla="usuario")
+dato = data_tabla.crear_data()
 
