@@ -43,5 +43,5 @@ pip install -r requirements.txt
 - [Gaston Roberto Mastoy](https://github.com/gastonmastoy)
 - [Francisco Jose Rendo](https://github.com/FrankRendo)
  
-## [Ver despliegue fornend "](próximamente)
+## [Ver despliegue fornend "](https://drkraziel.pythonanywhere.com)
   Realizado con pythonanywhere
