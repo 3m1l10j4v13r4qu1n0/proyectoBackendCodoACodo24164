@@ -110,7 +110,7 @@ class Tabla:
                 cursor.execute(consulta,dato)
                 cls._conexion.commit()
                 cls._conexion.close()
-                #print(f"¡Tabla {datos["tabla"]} elimino id = {id}!\n")
+                print(f"¡Tabla {datos["tabla"]} elimino id = {id}!\n")
             except cls._error as ex:
                 print(f'Error al intentar la conexión: {ex}')
         

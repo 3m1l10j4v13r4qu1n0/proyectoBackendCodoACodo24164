@@ -10,7 +10,7 @@ from main import app
 #Ruta para obtener todos los usuarios (GET)
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
-    data_tabla = Ingreso_data(data={},tabla="usuario")
+    data_tabla = Ingreso_data(tabla="usuario",nuevo_request=[])
     dato = data_tabla.crear_data()
     lista_usuarios = Tabla.obtener_tabla(datos=dato)
     return jsonify(lista_usuarios)
@@ -22,13 +22,25 @@ def crear_usuario():
     #Obtener datos del usuario del cuerpo de la solicitud
     nuevo_usuario= request.get_json()
     #Agregar el nuevo usuario a la lista
-    agre=[]
-    agre.append(nuevo_usuario)
-    data_tabla_nuevo = Ingreso_data(data=agre[0],tabla="usuario")
+    data_tabla_nuevo = Ingreso_data(tabla="usuario",nuevo_request=nuevo_usuario)
     dato_nuevo = data_tabla_nuevo.crear_data()
     usuario_post.agregar_fila(datos=dato_nuevo)
     # Devolver respuesta con código de estado 201 (Creado)
     return jsonify({'mensaje': 'Usuario creado exitosamente'}), 201
+
+#  # Ruta para eliminar un usuario existente (DELETE)
+# @app.route('/usuarios/<int:id_usuario>', methods=['DELETE'])
+# def eliminar_usuario(codigo):
+#     # Buscar el usuario con el ID especificado
+   
+#     mensaje = codigo
+#         #Tabla.eliminar_fila_id(str(id_usuario), datos={"tabla":"usuario"})
+#         # Si el usuario no existe, devolver error 404 (No encontrado)
+#         #return jsonify({'mensaje': 'Usuario no encontrado'}), 404
+#     # # Eliminar el usuario de la lista
+#     # Devolver respuesta con código de estado 200 (OK)
+#     return jsonify({'mensaje': f'Usuario eliminado exitosamente el id:{mensaje}'})
+
 
 #Ruta para obtener un usuario específico (GET)
 @app.route('/api/usuarios/<int:id_usuario>', methods=['GET'])
@@ -46,30 +58,17 @@ def get_usuario(id_usuario):
 @app.route('/api/usuarios/<int:id_usuario>', methods=['PUT'])
 def actualizar_usuario(id_usuario):
     # Buscar el usuario con el ID especificado
+    nuevo_usuario= request.get_json()
     try:
-        nuevo_usuario= request.get_json()
-        agre=[]
-        agre.append(nuevo_usuario)
         #Agregar el nuevo usuario a la lista
-        Tabla.actulizar_fila(str(id_usuario),agre[0])
+        Tabla.actulizar_fila(str(id_usuario),datos=Ingreso_data.get_request(nuevo_request=nuevo_usuario))
     except TypeError:
         # Si el usuario no existe, devolver error 404 (No encontrado)
         return jsonify({'mensaje': 'Usuario no encontrado'}), 404
     return jsonify("se actualizo el usuario correctamenta")
 
   
-# # Ruta para eliminar un usuario existente (DELETE)
-@app.route('/usuarios/<int:id_usuario>', methods=['DELETE'])
-def eliminar_usuario(id_usuario):
-    # Buscar el usuario con el ID especificado
-    try:
-        Tabla.eliminar_fila_id(str(id_usuario),datos={"tabla":"usuario"})
-    except TypeError:
-        # Si el usuario no existe, devolver error 404 (No encontrado)
-        return jsonify({'mensaje': 'Usuario no encontrado'}), 404
-    # Eliminar el usuario de la lista
-    # Devolver respuesta con código de estado 200 (OK)
-    return jsonify({'mensaje': 'Usuario eliminado exitosamente'})
+
 
 
 

@@ -1,15 +1,10 @@
-data = {
-    "apellido": "pez",
-    "email": "correo@corre.com",
-    "id": None,
-    "nombre": "emilio",
-    "telefono": "125208148"
-  }
+
 
 class Ingreso_data:
-	def __init__(self,data:dict[str,any],tabla:str) -> dict[str,any]:
+	
+	def __init__(self,tabla:str,nuevo_request) -> dict[str,any]:
 		self.tabla = tabla
-		self.data = data
+		self.data = self.get_request(nuevo_request)
 		self.campos= []
 		self.valores=[]
 		#self.id = ""
@@ -37,7 +32,10 @@ class Ingreso_data:
 			'comodin': self.comodin
 		}
 		return data
-
-data_tabla = Ingreso_data(data,tabla="usuario")
-dato = data_tabla.crear_data()
+	@classmethod
+	def get_request(cls,nuevo_request):
+		agre= {}
+		agre.update(nuevo_request)
+		return agre
+		
 
