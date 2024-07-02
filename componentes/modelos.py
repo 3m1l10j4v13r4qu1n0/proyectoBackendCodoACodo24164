@@ -4,9 +4,11 @@ from conexion_db.modelo_conexion import Conexion_tabla
 from conexion_db import config_db as c_db
 
 class User(Tabla):
-    _cox = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.obtener_fila_id(datos={"tabla":"usuario"}))
-    def __init__(self,id:str):
+    datos = {"tabla":"usuario"}
+    _cox = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.obtener_fila_id(datos= datos))
+    def __init__(self,id:str="") -> dict[str, any]:
         super().crear(self._cox.obtener_fila_id(id)[0])
+    
 
 
 

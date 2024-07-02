@@ -1,5 +1,8 @@
 #Vistas para la arquitectura API REST   
 from componentes.modelos import User,Users
+from componentes.modelo_tabla import Tabla
+from conexion_db.modelo_conexion import Conexion_tabla
+from conexion_db import config_db as c_db
 from servicios.prueba_back_json import Ingreso_data
 from flask import  request, jsonify
 from main import app
@@ -19,28 +22,29 @@ def get_usuarios():
 #Ruta para crear un nuevo usuario (POST)
 @app.route('/api/usuarios', methods=['POST'])
 def crear_usuario():
-    # usuario_post = Tabla()
-    # #Obtener datos del usuario del cuerpo de la solicitud
-    # nuevo_usuario= request.get_json()
-    # #Agregar el nuevo usuario a la lista
-    # data_tabla_nuevo = Ingreso_data(tabla="usuario",nuevo_request=nuevo_usuario)
-    # dato_nuevo = data_tabla_nuevo.crear_data()
-    # usuario_post.agregar_fila(datos=dato_nuevo)
-    # # Devolver respuesta con código de estado 201 (Creado)
+    #Obtener datos del usuario del cuerpo de la solicitud
+    nuevo_usuario= request.get_json()
+    #Agregar el nuevo usuario a la lista
+    data_tabla = Ingreso_data(tabla="usuario",nuevo_request=nuevo_usuario)
+    dato = data_tabla.crear_data()
+    agregar = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.agregar_fila(datos= dato))
+    agregar.agregar_fila(datos=dato)
+    # Devolver respuesta con código de estado 201 (Creado)
     return jsonify({'mensaje': 'Usuario creado exitosamente'}), 201
 
 #  # Ruta para eliminar un usuario existente (DELETE)
-# @app.route('/usuarios/<int:id_usuario>', methods=['DELETE'])
-# def eliminar_usuario(codigo):
-#     # Buscar el usuario con el ID especificado
-   
-#     mensaje = codigo
-#         #Tabla.eliminar_fila_id(str(id_usuario), datos={"tabla":"usuario"})
-#         # Si el usuario no existe, devolver error 404 (No encontrado)
-#         #return jsonify({'mensaje': 'Usuario no encontrado'}), 404
-#     # # Eliminar el usuario de la lista
-#     # Devolver respuesta con código de estado 200 (OK)
-#     return jsonify({'mensaje': f'Usuario eliminado exitosamente el id:{mensaje}'})
+@app.route('/usuarios/<int:id_usuario>', methods=['DELETE'])
+def eliminar_usuario(id_usuario):
+    # Buscar el usuario con el ID especificado
+    eliminar = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.eliminar_fila_id())
+    try:
+        eliminar.eliminar_fila_id(str(id_usuario))
+    except TypeError:
+        # Si el usuario no existe, devolver error 404 (No encontrado)
+        return jsonify({'mensaje': 'Usuario no encontrado'}), 404 
+    # # Eliminar el usuario de la lista
+    # Devolver respuesta con código de estado 200 (OK)
+    return jsonify({'mensaje': f'Usuario eliminado exitosamente'})
 
 
 #Ruta para obtener un usuario específico (GET)
@@ -60,12 +64,14 @@ def get_usuario(id_usuario):
 def actualizar_usuario(id_usuario):
     # Buscar el usuario con el ID especificado
     nuevo_usuario= request.get_json()
+    #Agregar el nuevo usuario a la lista
+    actualiza = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.actulizar_fila())
     try:
-        #Agregar el nuevo usuario a la lista
-        User.actulizar_fila(str(id_usuario),datos=Ingreso_data.get_request(nuevo_request=nuevo_usuario))
+        actualiza.actualizar_fila(id=str(id_usuario),datos= nuevo_usuario)
     except TypeError:
         # Si el usuario no existe, devolver error 404 (No encontrado)
-        return jsonify({'mensaje': 'Usuario no encontrado'}), 404
+        return jsonify({'mensaje': 'Usuario no encontrado'}), 404    
+    # Devolver el usuario encontrado
     return jsonify("se actualizo el usuario correctamenta")
 
   

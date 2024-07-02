@@ -39,3 +39,38 @@ class Conexion_tabla:
       resultado.append(dict((("campos",campos),("valores",valores))))
       self._cox.close()
       return resultado
+    
+    def agregar_fila(self,datos):
+        try:
+            self._cox.connect()
+        except Exception as ex:
+            print(f'Error al intentar la conexión: {ex}')
+        cursor = self._cox.cursor()
+        dato = (datos["valores"])
+        cursor.execute(self.consulta, dato )
+        self._cox.commit()
+        self._cox.close()
+
+
+    def actualizar_fila(self,id, datos):
+        try:
+            self._cox.connect()
+        except Exception as ex:
+            print(f'Error al intentar la conexión: {ex}')
+        cursor = self._cox.cursor()
+        dato = (datos["apellido"],datos["nombre"],datos["email"],datos["telefono"],id,)
+        cursor.execute(self.consulta, dato )
+        self._cox.commit()
+        self._cox.close()
+    
+    def eliminar_fila_id(self,id):
+        try:
+            self._cox.connect()
+        except Exception as ex:
+            print(f'Error al intentar la conexión: {ex}')
+        cursor = self._cox.cursor()
+        dato = (id,)
+        cursor.execute(self.consulta, dato )
+        self._cox.commit()
+        self._cox.close()
+    
