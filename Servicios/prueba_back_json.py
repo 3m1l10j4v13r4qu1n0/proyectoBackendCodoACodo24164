@@ -12,14 +12,15 @@ class Ingreso_data:
 		self.data = data
 		self.campos= []
 		self.valores=[]
-		self.id = ""
+		#self.id = ""
 		#self.comodin = self.agregar_comodin()
 		for clave, valor in self.data.items():
 			if clave != "id":
 				self.campos.append(clave)
 				self.valores.append(valor)
 			else:
-				self.id = self.id + str(valor)
+				print("no se agrega id")
+				#self.id = str(valor)
 				
 
 		def agregar_comodin(campos) -> str:
@@ -31,7 +32,6 @@ class Ingreso_data:
 	def crear_data(self) -> dict[str,any]:
 		data = {
 			'tabla':self.tabla,
-			'id':self.data["id"],
 			'campos':(*self.campos,),
 			'valores':(*self.valores,),
 			'comodin': self.comodin
