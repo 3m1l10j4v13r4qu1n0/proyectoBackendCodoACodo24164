@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+            <div class="card-body">
+                <h5 class="card-title">Modificar producto</h5>
+                <form action="/api/productos/editar/{{data.id}}" method="POST">
+                    <div class="mb-3">
+                      <label for="titulo" class="form-label">Titulo</label>
+                      <input type="text" class="form-control" id="titulo" name="titulo" value="{{data.titulo}}">
+                    </div>
+                    <div class="mb-3">
+                      <label for="imagen" class="form-label">URL de la imagen</label>
+                      <input type="text" class="form-control" id="imagen" name="imagen" value="{{data.imagen}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{data.descripcion}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio" value="{{data.precio}}">
+                    </div>
+                    <a href="/productos" class="btn btn-primary">Volver</a>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                  </form>
+            </div>
+            
+{% endblock %}
