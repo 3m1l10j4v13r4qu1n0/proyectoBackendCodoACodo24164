@@ -16,13 +16,10 @@ class Conexion_tabla:
         cursor = self._cox.cursor()
         cursor.execute(self.consulta)
         columns = [column[0] for column in cursor.description]
-        #print(columns)
         resultado = []
         for row in cursor.fetchall():
             resultado.append(dict(zip(columns, row)))
-
         self._cox.close()
-        #print(resultado)
         return resultado
     
     def obtener_fila_id(self,id):

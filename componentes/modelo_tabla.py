@@ -1,9 +1,5 @@
-#from conexion_db import config_db as c_db
 
 class Tabla:
-    #atributos de clase
-    # _conexion = c_db.conexion
-    # _error = c_db.error
     
     def __init__(self):
        pass
