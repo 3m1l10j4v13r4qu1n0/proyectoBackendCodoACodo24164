@@ -1,6 +1,5 @@
 #Vistas para la arquitectura API REST   
-from componentes.modelo_tabla import Tabla
-from componentes.modelos import User
+from componentes.modelos import User,Users
 from servicios.prueba_back_json import Ingreso_data
 from flask import  request, jsonify
 from main import app
@@ -10,22 +9,24 @@ from main import app
 #Ruta para obtener todos los usuarios (GET)
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
-    data_tabla = Ingreso_data(tabla="usuario",nuevo_request=[])
-    dato = data_tabla.crear_data()
-    lista_usuarios = Tabla.obtener_tabla(datos=dato)
-    return jsonify(lista_usuarios)
+    try:
+       usuarios = Users()
+    except TypeError:
+        # Si el usuario no existe, devolver error 404 (No encontrado)
+        return jsonify({'mensaje': 'Usuario no encontrado'}), 404 
+    return jsonify(usuarios.__dict__["lista_user"])
 
 #Ruta para crear un nuevo usuario (POST)
 @app.route('/api/usuarios', methods=['POST'])
 def crear_usuario():
-    usuario_post = Tabla()
-    #Obtener datos del usuario del cuerpo de la solicitud
-    nuevo_usuario= request.get_json()
-    #Agregar el nuevo usuario a la lista
-    data_tabla_nuevo = Ingreso_data(tabla="usuario",nuevo_request=nuevo_usuario)
-    dato_nuevo = data_tabla_nuevo.crear_data()
-    usuario_post.agregar_fila(datos=dato_nuevo)
-    # Devolver respuesta con código de estado 201 (Creado)
+    # usuario_post = Tabla()
+    # #Obtener datos del usuario del cuerpo de la solicitud
+    # nuevo_usuario= request.get_json()
+    # #Agregar el nuevo usuario a la lista
+    # data_tabla_nuevo = Ingreso_data(tabla="usuario",nuevo_request=nuevo_usuario)
+    # dato_nuevo = data_tabla_nuevo.crear_data()
+    # usuario_post.agregar_fila(datos=dato_nuevo)
+    # # Devolver respuesta con código de estado 201 (Creado)
     return jsonify({'mensaje': 'Usuario creado exitosamente'}), 201
 
 #  # Ruta para eliminar un usuario existente (DELETE)
@@ -47,12 +48,12 @@ def crear_usuario():
 def get_usuario(id_usuario):
     # Buscar el usuario con el ID especificado
     try:
-        usuario_id_get = User(str(id_usuario))
+        usuario = User(str(id_usuario))
     except TypeError:
         # Si el usuario no existe, devolver error 404 (No encontrado)
         return jsonify({'mensaje': 'Usuario no encontrado'}), 404    
     # Devolver el usuario encontrado
-    return jsonify(usuario_id_get.__dict__)
+    return jsonify(usuario.__dict__)
 
 # Ruta para actualizar un usuario existente (PUT)
 @app.route('/api/usuarios/<int:id_usuario>', methods=['PUT'])
@@ -61,7 +62,7 @@ def actualizar_usuario(id_usuario):
     nuevo_usuario= request.get_json()
     try:
         #Agregar el nuevo usuario a la lista
-        Tabla.actulizar_fila(str(id_usuario),datos=Ingreso_data.get_request(nuevo_request=nuevo_usuario))
+        User.actulizar_fila(str(id_usuario),datos=Ingreso_data.get_request(nuevo_request=nuevo_usuario))
     except TypeError:
         # Si el usuario no existe, devolver error 404 (No encontrado)
         return jsonify({'mensaje': 'Usuario no encontrado'}), 404

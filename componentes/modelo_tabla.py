@@ -1,9 +1,9 @@
-from conexion_db import config_db as c_db
+#from conexion_db import config_db as c_db
 
 class Tabla:
     #atributos de clase
-    _conexion = c_db.conexion
-    _error = c_db.error
+    # _conexion = c_db.conexion
+    # _error = c_db.error
     
     def __init__(self):
        pass
@@ -14,44 +14,15 @@ class Tabla:
 
     @classmethod
     def obtener_tabla(cls, datos:dict[str, any]) -> list[dict[str, any]]:
-        if cls._conexion.is_connected():
-            #print(f'Inicio de conexion de tabla {datos["tabla"]}!')
-            try:
-                cls._conexion.connect()
-                cursor = cls._conexion.cursor()
-                consulta = f"SELECT * FROM {f'{datos["tabla"]}'}"
-                cursor.execute(consulta)
-                columns = [column[0] for column in cursor.description]
-                #print(columns)
-                resultado = []
-                for row in cursor.fetchall():
-                    resultado.append(dict(zip(columns, row)))
-                cls._conexion.close()
-                #print(resultado)
-                return resultado
-            except cls._error as ex:
-                print(f'Error al intentar la conexión: {ex}')
+        consulta = f"SELECT * FROM {f'{datos["tabla"]}'}"
+        return consulta
     
     
     
     @classmethod
-    def obtener_fila_id(cls, id:str, datos:dict[str, any]) -> list[dict[str, any]]:
-        if cls._conexion.is_connected():
-            #print(f'Inicio de conexion de tabla {datos["tabla"]}!')
-            try:
-                cls._conexion.connect()
-                cursor = cls._conexion.cursor()
-                consulta = f'SELECT * FROM {datos["tabla"]} WHERE id = %s;'
-                dato = (id,)
-                cursor.execute(consulta,dato)
-                campos = [column[0] for column in cursor.description]
-                valores = cursor.fetchone()
-                resultado = []
-                resultado.append(dict((("campos",campos),("valores",valores))))
-                #print(resultado[0])
-                return resultado[0]
-            except cls._error as ex:
-                print(f'Error al intentar la conexión: {ex}')
+    def obtener_fila_id(cls,datos:dict[str, any]) -> list[dict[str, any]]:
+        consulta = f'SELECT * FROM {datos["tabla"]} WHERE id = %s;'
+        return consulta
     
     @classmethod
     def agregar_fila(cls, datos:dict[str, any]):

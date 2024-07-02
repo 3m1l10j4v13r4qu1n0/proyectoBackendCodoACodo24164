@@ -1,25 +1,6 @@
+from conexion_db.modelo_conexion import Conexion_tabla
+from conexion_db import config_db as c_db
 from componentes.modelo_tabla import Tabla
-from componentes.modelos import User
-from componentes.modelos import User
-from servicios.prueba_back_json import Ingreso_data
-data = {
-    "apellido": "rout",
-    "email": "correo@corre.com",
-    "id": None,
-    "nombre": "carlos",
-    "telefono": "1122333544"
-  }
-data_tabla = Ingreso_data(data,tabla="usuario")
-dato = data_tabla.crear_data()
-# usuario = Tabla()
-# usuario.obtener_fila_id(id="13",datos= dato)
-#u = User(id="17").agregar_fila(datos=dato)
-#Tabla.actulizar_fila(id="28",datos= {"nombre":"marcos"})
-#print(usuario.__dict__)
-#Tabla.eliminar_fila_id(id="13",datos={"tabla":"usuario"})
-print("*************************************")
-# print(u.__dict__)
-
-
-
-
+cox = Conexion_tabla(cox= c_db.conexion, consulta=Tabla.obtener_tabla(datos={"tabla":"usuario"}))
+lista = cox.obtener_tabla()
+print(lista)
