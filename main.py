@@ -1,11 +1,11 @@
 from flask import Flask
-from flask_cors import CORS
+#from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 
 # Importar las vistas
-# from componentes.vistas_api import *
+from componentes.vistas_api import *
 from componentes.vistas_web import *
 from componentes.vistas_api_productos import *
 
