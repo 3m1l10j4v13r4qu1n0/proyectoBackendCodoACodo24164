@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+            <div class="card-body">
+                <h5 class="card-title">Lista de API's</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Productos</h6>
+            </div>
+            
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/api/productos">/api/productos</a></li>
+                <li class="list-group-item">/api/productos/nuevo</li>
+                <li class="list-group-item">/api/productos/eliminar/(id)</li>
+                <li class="list-group-item">/api/productos/editar/(id)</li>
+            </ul>
+
+{% endblock %}
