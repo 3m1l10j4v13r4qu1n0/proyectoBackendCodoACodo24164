@@ -1,5 +1,5 @@
 #Vistas para la arquitectura API REST   
-from componentes.modelos import User,Users
+from componentes.modelos import User,Users,Data_login,User_dl
 from componentes.modelo_tabla import Tabla
 from conexion_db.modelo_conexion import Conexion_tabla
 from conexion_db import config_db as c_db
@@ -74,6 +74,28 @@ def actualizar_usuario(id_usuario):
     # Devolver el usuario encontrado
     return jsonify("se actualizo el usuario correctamenta")
 
+###### dataLogin ########
+#Ruta para obtener todos los usuarios (GET)
+@app.route('/api/datalogin', methods=['GET'])
+def get_lista_data_login():
+    try:
+       lista_login = Data_login()
+    except TypeError:
+        # Si el usuario no existe, devolver error 404 (No encontrado)
+        return jsonify({'mensaje': 'Usuario no encontrado'}), 404 
+    return jsonify(lista_login.__dict__["lista_data_login"])
+
+#Ruta para obtener un login específico (GET)
+@app.route('/api/datalogin/<int:id_login>', methods=['GET'])
+def get_data_login(id_login):
+    # Buscar el login con el ID especificado
+    try:
+        datalogin = User_dl(str(id_login))
+    except TypeError:
+        # Si el login no existe, devolver error 404 (No encontrado)
+        return jsonify({'mensaje': 'datalogin no encontrado'}), 404    
+    # Devolver el login encontrado
+    return jsonify(datalogin.__dict__)
   
 
 
